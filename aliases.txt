@@ -1,0 +1,14 @@
+serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+
+#the following is thanks to http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+
+#ignore checked-in file when adding all
+assume   = update-index --assume-unchanged
+unassume = update-index --no-assume-unchanged
+assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+
+# example: git assume passwords.php && git add . && git unassume passwords.php
+
+#save to stash, leaving in tree, including date in stash name
+snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+
